@@ -1,0 +1,51 @@
+# FraudShield - Smart UPI Fraud Detection System
+
+print("=" * 45)
+print("     FraudShield - UPI Fraud Detection")
+print("=" * 45)
+
+# Take input from user
+amount = float(input("Enter UPI transaction amount (Rs): "))
+new_receiver = input("Is this a new receiver? (yes/no): ").lower()
+urgent = input("Is the payment request urgent? (yes/no): ").lower()
+unknown_link = input("Did you receive an unknown payment link? (yes/no): ").lower()
+otp_shared = input("Did you share your OTP or UPI PIN? (yes/no): ").lower()
+
+# Calculate risk score
+risk_score = 0
+
+if amount > 10000:
+    risk_score += 25
+
+if new_receiver == "yes":
+    risk_score += 20
+
+if urgent == "yes":
+    risk_score += 20
+
+if unknown_link == "yes":
+    risk_score += 20
+
+if otp_shared == "yes":
+    risk_score += 50
+
+# Maximum score = 100
+risk_score = min(risk_score, 100)
+
+# Display output
+print("\n========== FRAUD ANALYSIS ==========")
+print("Transaction Amount: Rs.", amount)
+print("Risk Score:", risk_score, "/ 100")
+
+if risk_score >= 50:
+    print("Risk Level: HIGH RISK")
+    print("Warning: Possible UPI fraud!")
+    print("Advice: Do not proceed. Verify the request.")
+elif risk_score >= 25:
+    print("Risk Level: MEDIUM RISK")
+    print("Warning: Check transaction details carefully.")
+else:
+    print("Risk Level: LOW RISK")
+    print("Advice: No major warning signs detected.")
+
+print("====================================")
